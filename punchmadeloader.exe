@@ -1,6 +1,7 @@
 import subprocess
 import tkinter as tk
 from tkinter import simpledialog
+import os
 
 def open_cmd_and_type():
     # Create a root window but keep it hidden
@@ -8,12 +9,13 @@ def open_cmd_and_type():
     root.withdraw()
 
     # Ask for input
-    text = simpledialog.askstring("Input", "punchmade loader:")
+    text = simpledialog.askstring("Input", "Enter the text you want to type in the command prompt:")
 
     if text:
         try:
-            # Open cmd and execute the command
-            subprocess.run(f'start cmd.exe /K "{text}"', shell=True, check=True)
+            # Use 'powershell' instead of 'cmd' for better Windows 11 compatibility
+            command = f'powershell.exe -Command "Start-Process powershell -ArgumentList \'-NoExit\',\'-Command\',\'{text}\'"'
+            subprocess.run(command, shell=True, check=True)
             print("Command executed successfully!")
         except subprocess.CalledProcessError as e:
             print(f"An error occurred: {e}")
