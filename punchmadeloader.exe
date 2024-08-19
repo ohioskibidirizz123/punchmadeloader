@@ -1,0 +1,24 @@
+import subprocess
+import tkinter as tk
+from tkinter import simpledialog
+
+def open_cmd_and_type():
+    # Create a root window but keep it hidden
+    root = tk.Tk()
+    root.withdraw()
+
+    # Ask for input
+    text = simpledialog.askstring("Input", "punchmade loader:")
+
+    if text:
+        try:
+            # Open cmd and execute the command
+            subprocess.run(f'start cmd.exe /K "{text}"', shell=True, check=True)
+            print("Command executed successfully!")
+        except subprocess.CalledProcessError as e:
+            print(f"An error occurred: {e}")
+    else:
+        print("No text entered.")
+
+if __name__ == "__main__":
+    open_cmd_and_type()
