@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUNCHMADELOADER</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            font-size: 5vw;
+            text-align: center;
+        }
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>PUNCHMADELOADER</h1>
+    <div class="button-container" id="buttonContainer"></div>
+
+    <script>
+        const buttons = [
+            { text: "Button 1", url: "https://www.example1.com" },
+            { text: "Button 2", url: "https://www.example2.com" },
+            { text: "Button 3", url: "https://www.example3.com" },
+            { text: "Button 4", url: "https://www.example4.com" },
+            { text: "Button 5", url: "https://www.example5.com" },
+            { text: "Button 6", url: "https://www.example6.com" }
+        ];
+
+        function createButtons() {
+            const container = document.getElementById('buttonContainer');
+            buttons.forEach(button => {
+                const btn = document.createElement('button');
+                btn.className = 'button';
+                btn.textContent = button.text;
+                btn.onclick = () => window.open(button.url, '_blank');
+                container.appendChild(btn);
+            });
+        }
+
+        createButtons();
+
+        function customizeButtons() {
+            buttons.forEach((button, index) => {
+                const newText = prompt(`Enter text for Button ${index + 1}:`, button.text);
+                if (newText) button.text = newText;
+                
+                const newUrl = prompt(`Enter URL for Button ${index + 1}:`, button.url);
+                if (newUrl) button.url = newUrl;
+            });
+
+            // Clear existing buttons and recreate them with new settings
+            document.getElementById('buttonContainer').innerHTML = '';
+            createButtons();
+        }
+
+        // Call customizeButtons() when you want to allow customization
+        // For example, you could add another button to trigger this:
+        // <button onclick="customizeButtons()">Customize Buttons</button>
+    </script>
+</body>
+</html>
