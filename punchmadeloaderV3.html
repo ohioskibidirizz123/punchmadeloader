@@ -11,6 +11,7 @@
             height: 100%;
             font-family: 'Arial', sans-serif;
             overflow: hidden;
+            background-color: #000; /* Fallback color */
         }
         #background-video {
             position: fixed;
@@ -21,7 +22,15 @@
             width: auto;
             height: auto;
             z-index: -1;
-            filter: brightness(50%);
+        }
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: -1;
         }
         .content {
             position: relative;
@@ -69,6 +78,7 @@
 </head>
 <body>
     <div id="background-video"></div>
+    <div class="video-overlay"></div>
     <div class="content">
         <h1>PUNCHMADELOADER</h1>
         <div class="button-container" id="buttonContainer"></div>
@@ -77,8 +87,8 @@
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         const buttons = [
-            { text: "Button 1", url: "https://www.youtube.com/@punchmadedev" 
-        ];
+            { text: "Button 1", url: "https://www.youtube.com/channel/UCdcmnkk8bZx40DKpQ-ZeCOw" },
+         ];
 
         function createButtons() {
             const container = document.getElementById('buttonContainer');
@@ -128,6 +138,13 @@
                 }
             });
         }
+
+        // Attempt to play video on user interaction
+        document.body.addEventListener('click', function() {
+            if (player && player.playVideo) {
+                player.playVideo();
+            }
+        });
     </script>
 </body>
 </html>
