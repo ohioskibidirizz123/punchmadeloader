@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUNCHMADELOADER</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        #background-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            filter: brightness(50%);
+        }
+        .content {
+            position: relative;
+            height: 100vh;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            font-size: 5vw;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+        }
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            max-width: 800px;
+        }
+        .button {
+            background-color: rgba(76, 175, 80, 0.8);
+            border: none;
+            color: white;
+            padding: 15px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .button:hover {
+            background-color: rgba(76, 175, 80, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+    <div id="background-video"></div>
+    <div class="content">
+        <h1>PUNCHMADELOADER</h1>
+        <div class="button-container" id="buttonContainer"></div>
+    </div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        const buttons = [
+            { text: "Button 1", url: "https://www.example1.com" },
+            { text: "Button 2", url: "https://www.example2.com" },
+            { text: "Button 3", url: "https://www.example3.com" },
+            { text: "Button 4", url: "https://www.example4.com" },
+            { text: "Button 5", url: "https://www.example5.com" },
+            { text: "Button 6", url: "https://www.example6.com" }
+        ];
+
+        function createButtons() {
+            const container = document.getElementById('buttonContainer');
+            buttons.forEach(button => {
+                const btn = document.createElement('button');
+                btn.className = 'button';
+                btn.textContent = button.text;
+                btn.onclick = () => window.open(button.url, '_blank');
+                container.appendChild(btn);
+            });
+        }
+
+        createButtons();
+
+        function customizeButtons() {
+            buttons.forEach((button, index) => {
+                const newText = prompt(`Enter text for Button ${index + 1}:`, button.text);
+                if (newText) button.text = newText;
+                
+                const newUrl = prompt(`Enter URL for Button ${index + 1}:`, button.url);
+                if (newUrl) button.url = newUrl;
+            });
+
+            document.getElementById('buttonContainer').innerHTML = '';
+            createButtons();
+        }
+
+        // YouTube Video Background
+        let player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('background-video', {
+                videoId: 'dQw4w9WgXcQ', // Replace with your desired YouTube video ID
+                playerVars: {
+                    autoplay: 1,
+                    loop: 1,
+                    controls: 0,
+                    showinfo: 0,
+                    mute: 1,
+                    modestbranding: 1,
+                    playsinline: 1,
+                    playlist: 'dQw4w9WgXcQ' // Repeat the video ID for looping
+                },
+                events: {
+                    onReady: (event) => {
+                        event.target.playVideo();
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
